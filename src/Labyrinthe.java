@@ -1,4 +1,6 @@
-/** 
+import java.io.*;
+
+/**
  * Classe labyrinthe
  * @autor:  Gabriel Comte
  * @autor:  Thomas Fuchs
@@ -66,7 +68,6 @@ class Labyrinthe{
                 break;
             case BAS:
                 res[0]++;
-            
             case GAUCHE:
                 res[1]--;
                 break;
@@ -110,15 +111,19 @@ class Labyrinthe{
      * estFini: retourne vrai si le personnage est à la sortie
      * @return vrai si le personnage est à la sortie
      */
-    public boolean etreFini(){
-       return this.sortie.equals(this.personnage.getX(), this.personnage.getY());
+    public boolean etreFini()
+    {
+        //return this.sortie.equals(this.personnage.getX(), this.personnage.getY());
+        return this.personnage.equals(this.sortie);
     }
     /**
      * méthode chargerLabyrinthe: charge un labyrinthe à partir d'un fichier .txt
      */
-    public static Labyrinthe chargerLabyrinthe(String nom)
+    public static Labyrinthe chargerLabyrinthe(String nom)throws PositionException
     {
-        
+
+        //On a tenté d'écrire cette fichue méthode mais on a pas réussi.
+
     }
 
 }
