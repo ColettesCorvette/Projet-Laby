@@ -85,10 +85,11 @@ class Labyrinthe{
      */
     void deplacerPerso(String action) throws ActionInconnueException, PositionException{
         int[] suivant = getSuivant(personnage.getX(), personnage.getY(), action);
-        if(!murs[suivant[0]][suivant[1]])
+        while(!murs[suivant[0]][suivant[1]] && !sortie.equals(suivant[0], suivant[1]))
         {
             personnage.setX(suivant[0]);
             personnage.setY(suivant[1]);
+            suivant = getSuivant(personnage.getX(), personnage.getY(), action);
         }
     }
     /**
@@ -113,8 +114,7 @@ class Labyrinthe{
      */
     public boolean etreFini()
     {
-        //return this.sortie.equals(this.personnage.getX(), this.personnage.getY());
-        return this.personnage.equals(this.sortie);
+        return this.sortie.equals(this.personnage.getX(), this.personnage.getY());
     }
     /**
      * méthode chargerLabyrinthe: charge un labyrinthe à partir d'un fichier .txt
