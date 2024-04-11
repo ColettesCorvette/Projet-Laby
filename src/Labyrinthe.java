@@ -1,5 +1,4 @@
 import java.io.*;
-
 /**
  * Classe labyrinthe
  * @autor:  Gabriel Comte
@@ -38,8 +37,6 @@ class Labyrinthe{
     public static final String BAS = "bas";
     public static final String GAUCHE = "gauche";
     public static final String DROITE = "droite";
-
-
     /*
      * retournant un caractère décrivant le contenu de
      * la case (x,y)
@@ -90,12 +87,6 @@ class Labyrinthe{
         {
             personnage.setX(suivant[0]);
             personnage.setY(suivant[1]);
-
-            if(sortie.equals(suivant[0], suivant[1]))
-            {
-                break;
-            }
-
             suivant = getSuivant(personnage.getX(), personnage.getY(), action);
         }
     }
@@ -125,28 +116,39 @@ class Labyrinthe{
     }
     /**
      * méthode chargerLabyrinthe: charge un labyrinthe à partir d'un fichier .txt
+     * @param nom nom du fichier
+     * @return labyrinthe
      */
-    public static Labyrinthe chargerLabyrinthe(String nom)throws IOException, FichierIncorrectException, PositionException
-    {
+    public static Labyrinthe chargerLabyrinthe(String nom)throws IOException, FichierIncorrectException, PositionException{
         BufferedReader br = new BufferedReader(new FileReader(nom));
-        int lignes, colonnes;
+        //lecture des deux premières lignes afin de récupérer le nombre de lignes et de colonnes et vérifier si ce sont des entiers
+        Labyrinthe labyrinthe = new Labyrinthe();
         try {
-            lignes = Integer.parseInt(br.readLine());
-            colonnes = Integer.parseInt(br.readLine());
+            labyrinthe.murs = new boolean[Integer.parseInt(br.readLine())][Integer.parseInt(br.readLine())];
         } catch (NumberFormatException e) {
+            br.close();
             throw new FichierIncorrectException("le nombre de lignes ou de colonnes n'est pas de type entier");
         }
-
-        Labyrinthe labyrinthe = new Labyrinthe();
-        labyrinthe.murs = new boolean[lignes][colonnes];
-
+        //intialisation des murs à false
+        int lignes = labyrinthe.murs.length;
+        int colonnes = labyrinthe.murs[0].length;
+        for (int i = 0; i < lignes ; i++) {
+            for (int j = 0; j < colonnes; j++) {
+                labyrinthe.murs[i][j] = false;
+            }
+        }
         //Compteurs de personnage et sortie
         int personnage = 0;
         int sortie = 0;
-
+        int nbLignes = 0;
+        //lecture du fichier
+        String line;
         for (int i = 0; i < lignes; i++) {
-            String line = br.readLine();
+            line = br.readLine();
+            nbLignes++;
+            //vérification de la longueur de la colonne
             if (line.length() != colonnes) {
+                br.close();
                 throw new FichierIncorrectException("le nombre de colonnes ne correspond pas");
             }
             for (int j = 0; j < colonnes; j++) {
@@ -156,15 +158,12 @@ class Labyrinthe{
                         labyrinthe.murs[i][j] = true;
                         break;
                     case VIDE:
-                        labyrinthe.murs[i][j] = false;
                         break;
                     case PJ:
-                        labyrinthe.murs[i][j] = false;
                         labyrinthe.personnage = new Personnage(i, j);
                         personnage++;
                         break;
                     case SORTIE:
-                        labyrinthe.murs[i][j] = false;
                         labyrinthe.sortie = new Sortie(i, j);
                         sortie++;
                         break;
@@ -173,16 +172,21 @@ class Labyrinthe{
                 }
             }
         }
-
+        //vérification de la présence d'un personnage et d'une sortie et qui il n'y a pas de doublons
         if (personnage!= 1) {
-            throw new FichierIncorrectException("il devrait y a avoir au plus un personnage");
+            br.close();
+            throw new FichierIncorrectException("il devrait y a avoir seulement un personnage");
         }
         if (sortie!= 1) {
-            throw new FichierIncorrectException("il devrait y a avoir au plus une sortie");
+            br.close();
+            throw new FichierIncorrectException("il devrait y a avoir seulement une sortie");
         }
-
+        //vérification du nombre de lignes
+        if (nbLignes != lignes) {
+            br.close();
+            throw new FichierIncorrectException("le nombre de lignes ne correspond pas");
+        }
+        br.close();
         return labyrinthe;
-
     }
-
 }
