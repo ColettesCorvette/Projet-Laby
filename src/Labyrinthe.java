@@ -175,11 +175,11 @@ class Labyrinthe{
         //vérification de la présence d'un personnage et d'une sortie et qui il n'y a pas de doublons
         if (personnage!= 1) {
             br.close();
-            throw new FichierIncorrectException("il devrait y a avoir seulement un personnage");
+            throw new FichierIncorrectException("il devrait y avoir seulement un personnage");
         }
         if (sortie!= 1) {
             br.close();
-            throw new FichierIncorrectException("il devrait y a avoir seulement une sortie");
+            throw new FichierIncorrectException("il devrait y avoir seulement une sortie");
         }
         //vérification du nombre de lignes
         if (nbLignes != lignes) {
