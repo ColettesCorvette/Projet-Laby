@@ -128,8 +128,6 @@ class Labyrinthe{
      */
     public static Labyrinthe chargerLabyrinthe(String nom)throws IOException, FichierIncorrectException, PositionException
     {
-
-
         BufferedReader br = new BufferedReader(new FileReader(nom));
         int lignes, colonnes;
         try {
