@@ -68,6 +68,7 @@ class Labyrinthe{
                 break;
             case BAS:
                 res[0]++;
+                break;
             case GAUCHE:
                 res[1]--;
                 break;
@@ -85,10 +86,16 @@ class Labyrinthe{
      */
     void deplacerPerso(String action) throws ActionInconnueException, PositionException{
         int[] suivant = getSuivant(personnage.getX(), personnage.getY(), action);
-        while(!murs[suivant[0]][suivant[1]] && !sortie.equals(suivant[0], suivant[1]))
+        while(!murs[suivant[0]][suivant[1]])
         {
             personnage.setX(suivant[0]);
             personnage.setY(suivant[1]);
+
+            if(sortie.equals(suivant[0], suivant[1]))
+            {
+                break;
+            }
+
             suivant = getSuivant(personnage.getX(), personnage.getY(), action);
         }
     }
