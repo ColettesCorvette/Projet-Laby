@@ -32,10 +32,10 @@ public class Position {
       * @param y : abscisse
       */
     public static void valide(int x, int y) throws PositionException{
-        if(x >= 0 || y < 0){
+        if(y < 0){
             throw new PositionException("Position y invalide : " + y);
         }
-        if(x < 0 || y >= 0){
+        if(x < 0){
             throw new PositionException("Position x invalide : " + x);
         }
         if(x < 0 || y < 0){

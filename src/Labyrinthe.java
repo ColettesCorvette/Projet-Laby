@@ -119,10 +119,64 @@ class Labyrinthe{
     /**
      * méthode chargerLabyrinthe: charge un labyrinthe à partir d'un fichier .txt
      */
-    public static Labyrinthe chargerLabyrinthe(String nom)throws PositionException
+    public static Labyrinthe chargerLabyrinthe(String nom)throws IOException, FichierIncorrectException, PositionException
     {
 
-        //On a tenté d'écrire cette fichue méthode mais on a pas réussi.
+
+        BufferedReader br = new BufferedReader(new FileReader(nom));
+        int lignes, colonnes;
+        try {
+            lignes = Integer.parseInt(br.readLine());
+            colonnes = Integer.parseInt(br.readLine());
+        } catch (NumberFormatException e) {
+            throw new FichierIncorrectException("le nombre de lignes ou de colonnes n'est pas de type entier");
+        }
+
+        Labyrinthe labyrinthe = new Labyrinthe();
+        labyrinthe.murs = new boolean[lignes][colonnes];
+
+        //Compteurs de personnage et sortie
+        int personnage = 0;
+        int sortie = 0;
+
+        for (int i = 0; i < lignes; i++) {
+            String line = br.readLine();
+            if (line.length() != colonnes) {
+                throw new FichierIncorrectException("le nombre de colonnes ne correspond pas");
+            }
+            for (int j = 0; j < colonnes; j++) {
+                char c = line.charAt(j);
+                switch (c) {
+                    case MUR:
+                        labyrinthe.murs[i][j] = true;
+                        break;
+                    case VIDE:
+                        labyrinthe.murs[i][j] = false;
+                        break;
+                    case PJ:
+                        labyrinthe.murs[i][j] = false;
+                        labyrinthe.personnage = new Personnage(i, j);
+                        personnage++;
+                        break;
+                    case SORTIE:
+                        labyrinthe.murs[i][j] = false;
+                        labyrinthe.sortie = new Sortie(i, j);
+                        sortie++;
+                        break;
+                    default:
+                        throw new FichierIncorrectException("caractere inconnu : " + c);
+                }
+            }
+        }
+
+        if (personnage!= 1) {
+            throw new FichierIncorrectException("il devrait y a avoir au plus un personnage");
+        }
+        if (sortie!= 1) {
+            throw new FichierIncorrectException("il devrait y a avoir au plus une sortie");
+        }
+
+        return labyrinthe;
 
     }
 
