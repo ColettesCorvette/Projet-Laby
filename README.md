@@ -19,7 +19,7 @@ null ou à la mauvaise position.
 
 ## 3. Descriptif des choix effectués :
 
-zizicoptère
+
 
 
 
@@ -37,8 +37,10 @@ Pour lancer l'application dans la console, il suffit de lancer la commande suiva
 
 
 ## 5. Résultats des tests unitaires :
-//TODO
+Tous les tests sont passés!!
 
 
 ## 6 .Descriptif des tests :
-//TODO
+Nous  avons décidé de tester les colisions avec chaque type de déplacement afin de vérifier si le personnage s'arrête correctement.
+Nous vérifions le chargement correct du labyrintthe avec les fichiers txt fournits.
+Nous ne vérifions pas le chargement en cas de perso introuvable ou en trop ainsi que les problème de colonne ou de ligne car il n'y a pas de fichier txt préconstruit avec ces bugs.
