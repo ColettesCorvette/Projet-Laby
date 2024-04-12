@@ -6,7 +6,7 @@ Compte rendu projet Laby :
 
 ## 2. Descriptif des difficultés rencontrées :
 
-- **Difficulté :** Méthode chargementLabyrinthe() de la classe Labyrinthe, nous avons rencontré des échecs (levées d'exceptions) et personnages 
+- **Difficulté :** Méthode chargementLabyrinthe() de la classe Labyrinthe, nous avons rencontré des échecs (levées d'exceptions) et personnage 
 null ou à la mauvaise position.
 
 - **Difficulté :** Méthode deplacerPerso() et getSuivant() de la classe Labyrinthe. Le personnage s'arrêtait avant la case S (sortie) ou lorsque l'utilisateur entrait "bas" dans la console, le personnage restait bloqué ou virait en diagonale vers le bas dans la colonne du côté gauche.
@@ -19,6 +19,13 @@ null ou à la mauvaise position.
 
 ## 3. Descriptif des choix effectués :
 
+- **Main :** Nous avons fait le choix d'utiliser le tableau de String args afin de passer le fichier souhaité en argument du programme principal.
+Ce qui évite un prompt utilisateur à chaque lancé de main.
+
+
+- **Labyrinthe :** Utilisation d'un switch dans la méthode getSuivant() afin de gérer chaque déplacement par cas.
+
+- **PositionException :** Nous avons programmé une classe PositionException permettant de lever des exceptions personnalisées.
 
 
 
@@ -32,7 +39,6 @@ Pour lancer l'application dans la console, il suffit de lancer la commande suiva
 ```bash
     java MainLaby <nom_fichier>.txt
 ```
-
 
 
 
